@@ -1,0 +1,3 @@
+// Creating of database
+create database company2cse1G1;
+use company2cse1G1;
