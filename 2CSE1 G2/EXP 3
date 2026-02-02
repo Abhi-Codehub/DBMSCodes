@@ -9,3 +9,6 @@ SELECT ENAME FROM EMPLOYEE WHERE ENAME LIKE 'S%';
 
 # 4. Display the names of employees whose name ends with alphabet S.
 SELECT ENAME FROM EMPLOYEE WHERE ENAME LIKE '%S';
+
+# 5. Display the names of employees working in department number 10 or 20 or 40 or employees working as clerks, salesman or analyst.
+SELECT * FROM EMPLOYEE WHERE DEPTNO IN(10,20,40) OR JOB IN ('CLERK', 'SALESMAN', 'ANALYST');
