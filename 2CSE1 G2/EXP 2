@@ -26,3 +26,6 @@ SELECT ENAME, JOB, SAL FROM EMPLOYEE WHERE SAL BETWEEN 1200 AND 1400;
 
 # 9. List Name and Department Number of employee who are clerks, analyst or salesman.
 SELECT ENAME, DEPTNO FROM EMPLOYEE WHERE JOB IN ('CLERK', 'ANALYST', 'SALESMAN');
+
+# 10. List Name and Department Number of employee whose began with M.
+SELECT ENAME, DEPTNO FROM EMPLOYEE WHERE ENAME LIKE 'M%';
