@@ -23,3 +23,6 @@ SELECT * FROM EMPLOYEE WHERE DEPTNO = 10 AND JOB NOT IN ('MANAGER','CLERK');
 
 # 8. Find Employees and jobs earning between 1200 and 1400.
 SELECT ENAME, JOB, SAL FROM EMPLOYEE WHERE SAL BETWEEN 1200 AND 1400;
+
+# 9. List Name and Department Number of employee who are clerks, analyst or salesman.
+SELECT ENAME, DEPTNO FROM EMPLOYEE WHERE JOB IN ('CLERK', 'ANALYST', 'SALESMAN');
