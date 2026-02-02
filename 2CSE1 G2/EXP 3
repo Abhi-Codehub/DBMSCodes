@@ -6,3 +6,6 @@ SELECT ENAME, JOB, DEPTNO FROM EMPLOYEE WHERE ENAME LIKE 'A___N';
 
 # 3. Display the name of employees whose name start with alphabet S.
 SELECT ENAME FROM EMPLOYEE WHERE ENAME LIKE 'S%';
+
+# 4. Display the names of employees whose name ends with alphabet S.
+SELECT ENAME FROM EMPLOYEE WHERE ENAME LIKE '%S';
