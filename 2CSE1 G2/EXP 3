@@ -21,3 +21,10 @@ SELECT EMPNO, SAL + IFNULL(COMM, 0) AS TOTAL_SAL FROM EMPLOYEE;
 
 # 8. Display employee number and annual salary for each employee.
 SELECT EMPNO, SAL * 12 AS ANNUAL_SALARY FROM EMPLOYEE;
+
+# 9. Display the names of all employees working as clerks and drawing a salary more than 3,000.
+SELECT ENAME FROM EMPLOYEE WHERE JOB = 'CLERK' AND SAL > 3000;
+
+# 10. Display the names of employees who are working as clerk, salesman or analyst and drawing a salary more than 3,000.
+SELECT ENAME FROM EMPLOYEE WHERE JOB IN ('CLERK', 'SALESMAN', 'ANALYST') AND SAL > 3000;
+
