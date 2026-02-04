@@ -1,0 +1,2 @@
+# 1. List all distinct job in Employee.
+SELECT DISTINCT JOB FROM EMPLOYEE;
