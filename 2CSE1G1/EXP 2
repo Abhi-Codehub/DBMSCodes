@@ -3,3 +3,6 @@ SELECT DISTINCT JOB FROM EMPLOYEE;
 
 # 2. List all information about employee in Department Number 30.
 SELECT * FROM EMPLOYEE WHERE DEPTNO = 30;
+
+# 3. Find all department names with department number greater than 20.
+SELECT DNAME, DEPTNO FROM DEPARTMENT WHERE DEPTNO > 20;
