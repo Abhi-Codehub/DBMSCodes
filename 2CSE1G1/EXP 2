@@ -18,3 +18,6 @@ SELECT * FROM EMPLOYEE WHERE JOB = 'MANAGER' AND DEPTNO != 30;
 
 # 7. List information about all Employees in department 10 who are not manager or clerks.
 SELECT * FROM EMPLOYEE WHERE DEPTNO = 10 AND JOB NOT IN('MANAGER', 'CLERK');
+
+# 8. Find Employees and jobs earning between 1200 and 1400.
+SELECT ENAME, JOB, SAL FROM EMPLOYEE WHERE SAL BETWEEN 1200 AND 1400;
