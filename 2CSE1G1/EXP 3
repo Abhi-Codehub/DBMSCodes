@@ -1,0 +1,2 @@
+# 1. List all employees and jobs in Department 30 in descending order by salary.
+SELECT ENAME, JOB, DEPTNO, SAL FROM EMPLOYEE WHERE DEPTNO = 30 ORDER BY SAL DESC;
