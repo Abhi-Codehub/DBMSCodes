@@ -6,3 +6,6 @@ SELECT * FROM EMPLOYEE WHERE DEPTNO = 30;
 
 # 3. Find all department names with department number greater than 20.
 SELECT DNAME, DEPTNO FROM DEPARTMENT WHERE DEPTNO > 20;
+
+# 4. Find all information about all the managers as well as the clerks in department 30.
+SELECT * FROM EMPLOYEE WHERE DEPTNO = 30 AND JOB IN('MANAGER', 'CLERK');
