@@ -15,3 +15,6 @@ SELECT ENAME, EMPNO, DEPTNO, JOB FROM EMPLOYEE WHERE JOB = 'CLERK';
 
 # 6. Find all managers not in department 30.
 SELECT * FROM EMPLOYEE WHERE JOB = 'MANAGER' AND DEPTNO != 30; 
+
+# 7. List information about all Employees in department 10 who are not manager or clerks.
+SELECT * FROM EMPLOYEE WHERE DEPTNO = 10 AND JOB NOT IN('MANAGER', 'CLERK');
