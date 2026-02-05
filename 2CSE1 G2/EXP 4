@@ -26,3 +26,15 @@ SELECT ENAME, JOB FROM EMPLOYEE WHERE JOB NOT IN('SALEMAN', 'CLERK', 'ANALYST');
 # salary (sal*12). The name of the employee earning highest
 # salary should appear first.
 SELECT ENAME, SAL * 12 AS ANNUAL_SALARY FROM EMPLOYEE ORDER BY ANNUAL_SALARY DESC;
+
+# 7. Display name, sal, hra, pf, da, totalsal for each employee. The
+# output should be in the order of total sal, hra 15% of sal, da
+# 10% of sal, pf 5% of sal. Total salary will be (sal + hra + da)-pf.
+SELECT ENAME, SAL,
+SAL * 0.15 AS HRA,
+SAL * 0.10 AS DA,
+SAL * 0.05 AS PF,
+(SAL + (SAL * 0.15) + (SAL * 0.10) - (SAL * 0.05)) AS TOTALSALARY 
+FROM EMPLOYEE 
+ORDER BY TOTALSALARY DESC;
+ 
