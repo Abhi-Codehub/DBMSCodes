@@ -4,3 +4,20 @@ SELECT * FROM EMPLOYEE;
 # 1. Display the list of employees who have joined the company 
 # before 30th June 80 or after 31st Dec 81.
 SELECT * FROM EMPLOYEE WHERE HIREDATE < '1980-06-30' OR HIREDATE > '1981-12-31';
+
+# 2. Display the names of employees whose names have second
+# alphabet A in their names.
+SELECT ENAME FROM EMPLOYEE WHERE ENAME LIKE '_A%';
+
+# 3. Display the names of employees whose name is exactly five
+# characters in length
+SELECT ENAME FROM EMPLOYEE WHERE ENAME LIKE '_____';
+SELECT ENAME FROM EMPLOYEE WHERE LENGTH(ENAME) = 5;
+
+# 4. Display the names of employees whose names have second
+# alphabet A in their names.
+SELECT ENAME FROM EMPLOYEE WHERE ENAME LIKE '_A%';
+
+# 5. Display the names of employees who are not working as
+# salesman or clerk or analyst.
+SELECT ENAME, JOB FROM EMPLOYEE WHERE JOB NOT IN('SALEMAN', 'CLERK', 'ANALYST');
