@@ -1,0 +1,6 @@
+USE company2cse1G2;
+SELECT * FROM EMPLOYEE;
+
+# 1. Display the list of employees who have joined the company 
+# before 30th June 80 or after 31st Dec 81.
+SELECT * FROM EMPLOYEE WHERE HIREDATE < '1980-06-30' OR HIREDATE > '1981-12-31';
