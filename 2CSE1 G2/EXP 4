@@ -21,3 +21,8 @@ SELECT ENAME FROM EMPLOYEE WHERE ENAME LIKE '_A%';
 # 5. Display the names of employees who are not working as
 # salesman or clerk or analyst.
 SELECT ENAME, JOB FROM EMPLOYEE WHERE JOB NOT IN('SALEMAN', 'CLERK', 'ANALYST');
+
+# 6. Display the name of the employee along with their annual
+# salary (sal*12). The name of the employee earning highest
+# salary should appear first.
+SELECT ENAME, SAL * 12 AS ANNUAL_SALARY FROM EMPLOYEE ORDER BY ANNUAL_SALARY DESC;
