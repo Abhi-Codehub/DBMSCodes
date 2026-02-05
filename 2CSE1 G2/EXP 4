@@ -37,4 +37,17 @@ SAL * 0.05 AS PF,
 (SAL + (SAL * 0.15) + (SAL * 0.10) - (SAL * 0.05)) AS TOTALSALARY 
 FROM EMPLOYEE 
 ORDER BY TOTALSALARY DESC;
- 
+
+# 8. Update the salary of each employee by 10% increment who are
+# not eligible for commission. 
+UPDATE EMPLOYEE SET SAL = SAL * 1.10 
+WHERE COMM IS NULL;
+SELECT SAL FROM EMPLOYEE;
+
+# 9. Display those employees whose salary is more than 3000 after
+# giving 20% increment.
+SELECT ENAME,SAL, SAL * 1.2 AS INCREMENTED_SALARY FROM EMPLOYEE WHERE SAL * 1.2 > 3000;
+
+# 10. Display those employees whose salary contains atleast 3 digits.
+SELECT ENAME, SAL FROM EMPLOYEE WHERE SAL >= 100;
+SELECT ENAME, SAL FROM EMPLOYEE WHERE LENGTH(SAL) >= 3;
