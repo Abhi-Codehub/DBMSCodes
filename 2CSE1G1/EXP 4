@@ -41,4 +41,18 @@ ORDER BY TOTAL_SALARY DESC;
 UPDATE EMPLOYEE SET SAL = SAL * 1.10 WHERE COMM IS NULL;
 SELECT * FROM EMPLOYEE;
 
-# 9. 
+# 9. Display those employees whose salary is more than 3000 after
+# giving 20% increment.
+SELECT ENAME , SAL, SAL * 1.20 AS INCREMENTED_SALARY 
+FROM EMPLOYEE 
+WHERE SAL * 1.20 > 3000; 
+
+# 10. Display those employees whose salary contains atleast 3 digits.
+SELECT ENAME,SAL 
+FROM EMPLOYEE WHERE 
+SAL >= 100;
+# OR 
+SELECT ENAME, SAL 
+FROM EMPLOYEE 
+WHERE LENGTH (SAL) >= 3;
+
