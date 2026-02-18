@@ -1,0 +1,75 @@
+USE COMPANY2CSE1G1;
+SHOW TABLES;
+SELECT * FROM DEPARTMENT;
+SELECT * FROM EMPLOYEE;
+
+#1. Display empno, ename, deptno from employee table. Instead
+#   of display department numbers display the related department
+#   name (Use decode function).
+
+SELECT EMPNO, ENAME, 
+CASE DEPTNO
+	WHEN 10 THEN 'RESEARCH'
+    WHEN 20 THEN 'ACCOUNTING'
+    WHEN 30 THEN 'SALES'
+    WHEN 40 THEN 'OPERATIONS'
+END AS DNAME
+FROM EMPLOYEE;
+
+#2. Display your age in days.
+SELECT DATEDIFF(CURDATE(), '2001-07-05') AS AGE_IN_DAYS;
+
+#3. Display your age in months.
+SELECT TIMESTAMPDIFF(MONTH, '2001-07-05', CURDATE()) AS AGE_IN_MONTH;
+
+#4. Display the current date as 15th August Friday Nineteen
+#   Ninety-Seven.
+SELECT DATE_FORMAT(CURDATE(), '%D, %M, %W, %Y') AS FORMATTED_DATE;
+
+#5. Display the following output for each row from employee
+#   table.
+SELECT ENAME ,DATE_FORMAT(HIREDATE, '%D, %M, %W, %Y') AS FORMATTED_DATE
+FROM EMPLOYEE;
+
+#6. Scott has joined the company on Wednesday 13th August
+#   Nineteen Ninety (HIREDATE)
+SELECT ENAME, DATE_FORMAT(HIREDATE, '%W,%D, %M, %Y') AS 
+FORMATTED_DATE_FOR_SCOTT FROM EMPLOYEE
+WHERE ENAME = 'SCOTT';
+
+#7. Find the date for nearest Saturday after current date.
+# SUNDAY -- 0
+# MONDAY -- 1
+# WEDNESDAY -- 3
+# SATURDAY -- 7
+SELECT DATE_ADD(CURDATE(),
+ INTERVAL(7 - DAYOFWEEK(CURDATE())) DAY )
+ AS NEXT_SATURDAY;
+
+#8. Display current time.
+SELECT CURTIME();
+
+#9. Display the date three months Before the current date
+SELECT DATE_SUB(CURDATE(),INTERVAL 3 MONTH) AS 3_MONTHS_BEFORE;
+
+#10. Display those employees who joined in the company in the
+#    month of Dec.
+SELECT ENAME FROM EMPLOYEE 
+WHERE MONTH(HIREDATE) = 12;
+
+#12. Display those employees whose 10% of salary is equal to the
+#    year of joining.
+SELECT * FROM EMPLOYEE
+WHERE (SAL * 0.10) = YEAR(HIREDATE);
+
+#13. Display those employees who joined the company before 15 of
+#    the months.
+SELECT * FROM EMPLOYEE
+WHERE DAY(HIREDATE) < 15;
+
+#15. Display those employees whose joining DATE is available in
+#    deptno
+SELECT * FROM EMPLOYEE
+WHERE DATE_FORMAT(HIREDATE, '%D') = DEPTNO;
+
+
