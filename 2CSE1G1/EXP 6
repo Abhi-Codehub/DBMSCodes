@@ -70,6 +70,6 @@ WHERE DAY(HIREDATE) < 15;
 #15. Display those employees whose joining DATE is available in
 #    deptno
 SELECT * FROM EMPLOYEE
-WHERE DATE_FORMAT(HIREDATE, '%D') = DEPTNO;
+WHERE DATE_FORMAT(HIREDATE, '%D') IN (10,20,30,40);
 
 
