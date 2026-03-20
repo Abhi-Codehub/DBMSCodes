@@ -1,3 +1,5 @@
+USE company2cse2;
+
 #1. Display all employees with their dept name.
 SELECT E.ENAME, 
 D.DNAME 
