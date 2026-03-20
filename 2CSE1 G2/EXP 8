@@ -1,0 +1,72 @@
+USE company2cse1G2;
+
+#1. Display all employees with their dept name.
+SELECT E.ENAME, 
+D.DNAME 
+FROM EMPLOYEE E
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO;
+
+#2. Display those employees whose manager names is jones, and also display their manager name.
+SELECT e.ENAME, m.ENAME AS MANAGER_NAME
+FROM EMPLOYEE e
+JOIN EMPLOYEE m ON e.MGR = m.EMPNO
+WHERE m.ENAME = 'JONES';
+
+#3. Display employee name, his job, his dept name, his manager name, his grade and make out of an under department wise.
+SELECT e.ENAME, e.JOB, d.DNAME, m.ENAME AS MANAGER_NAME
+FROM EMPLOYEE e 
+LEFT JOIN EMPLOYEE m ON e.MGR = m.EMPNO 
+JOIN DEPARTMENT d ON e.DEPTNO = d.DEPTNO 
+ORDER BY d.DEPTNO;
+
+#4. List out all the employees name, job, and salary grade and department name for everyone in the company except ‘clerk’. Sort on salary display the highest salary.
+SELECT e.ENAME, e.JOB, d.DNAME
+FROM EMPLOYEE e
+JOIN DEPARTMENT d ON e.DEPTNO = d.DEPTNO
+WHERE e.JOB != 'CLERK'
+ORDER BY e.SAL DESC;
+
+#5. Display employee name, his job and his manager. Display also employees who are without manager.
+SELECT e.ENAME, e.JOB, m.ENAME AS MANAGER_NAME 
+FROM EMPLOYEE e 
+LEFT JOIN EMPLOYEE m ON e.MGR = m.EMPNO; 
+
+#6. List the employee name, job, annual salary, deptno, dept name and grade who earn 36000 a year or who are not clerks.
+SELECT e.ENAME, e.JOB, (e.SAL * 12) AS ANNUAL_SALARY, e.DEPTNO, d.DNAME
+FROM EMPLOYEE e 
+JOIN DEPARTMENT d ON e.DEPTNO = d.DEPTNO 
+WHERE (e.SAL * 12) = 36000 OR e.JOB != 'CLERK';
+
+#7. List ename, job, annual sal, deptno, dname and grade who earn 30000 per year and who are not clerks.
+SELECT e.ENAME, e.JOB, (e.SAL * 12) AS ANNUAL_SALARY, e.DEPTNO, d.DNAME
+FROM EMPLOYEE e
+JOIN DEPARTMENT d ON e.DEPTNO = d.DEPTNO
+WHERE (e.SAL * 12) = 30000 AND e.JOB != 'CLERK';
+
+#8. List out all employees by name and number along with their manager’s name and number also display ‘no manager’ who has no manager.
+SELECT e.ENAME, e.EMPNO, COALESCE(m.ENAME, 'no manager') AS MANAGER_NAME, m.EMPNO AS MANAGER_NUMBER 
+FROM EMPLOYEE e 
+LEFT JOIN EMPLOYEE m ON e.MGR = m.EMPNO;
+
+#9. Select dept name, dept no and sum of sal
+SELECT D.DNAME,
+D.DEPTNO,
+SUM(SAL) AS TOTAL_SALARY
+FROM DEPARTMENT D
+JOIN EMPLOYEE E 
+ON E.DEPTNO = D.DEPTNO
+GROUP BY D.DEPTNO;
+
+#10. Display employee number, name and location of the department in which he is working
+SELECT E.EMPNO, E.ENAME, D.DNAME
+FROM EMPLOYEE E 
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO;
+
+#11. Display employee name and department name for each employee.
+SELECT E.ENAME, 
+D.DNAME 
+FROM EMPLOYEE E
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO;
