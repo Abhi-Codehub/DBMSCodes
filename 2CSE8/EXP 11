@@ -1,0 +1,71 @@
+#1. Delete those employees who joined the company before 31- dec-82 while there dept location is ‘new york’ or ‘chicago’.
+DELETE FROM EMPLOYEE
+WHERE EMPNO IN (
+    SELECT e.EMPNO
+    FROM EMPLOYEE e
+    JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+    WHERE e.HIREDATE < '1982-12-31'
+    AND d.LOC IN ('NEW YORK', 'CHICAGO')
+);
+
+#2. Display employee name, job, deptname, location for all who are working as managers.
+SELECT e.ENAME, e.JOB, d.DNAME, d.LOC
+FROM EMPLOYEE e
+JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+WHERE e.JOB = 'MANAGER';
+
+#3. Display name and salary of ford if his sal is equal to high sal of his grade.
+SELECT ENAME, SAL
+FROM EMPLOYEE e
+WHERE ENAME = 'FORD'
+AND SAL = (
+    SELECT MAX(SAL)
+    FROM EMPLOYEE
+    WHERE JOB = e.JOB
+);
+
+#4. Find out the top 5 earner of company.
+SELECT ENAME, SAL
+FROM EMPLOYEE
+ORDER BY SAL DESC
+LIMIT 5;
+
+#5. Display the name of those employees who are getting highest salary.
+SELECT ENAME
+FROM EMPLOYEE
+WHERE SAL = (SELECT MAX(SAL) FROM EMPLOYEE);
+
+#6. Display those employees whose salary is equal to average of maximum and minimum.
+SELECT ENAME, SAL
+FROM EMPLOYEE
+WHERE SAL = (
+    (SELECT MAX(SAL) FROM EMPLOYEE) +
+    (SELECT MIN(SAL) FROM EMPLOYEE)
+) / 2;
+
+#7. Display dname where at least 3 are working and display only dname
+SELECT d.DNAME
+FROM EMPLOYEE e
+JOIN DEPT d ON e.DEPTNO = d.DEPTNO
+GROUP BY d.DNAME
+HAVING COUNT(e.EMPNO) >= 3;
+
+#8. Display name of those managers names whose salary is more than average salary of company.
+SELECT ENAME
+FROM EMPLOYEE
+WHERE JOB = 'MANAGER'
+AND SAL > (SELECT AVG(SAL) FROM EMPLOYEE);
+
+#9. Display those managers name whose salary is more than an average salary of his employees.
+SELECT m.ENAME
+FROM EMPLOYEE m
+JOIN EMPLOYEE e ON m.EMPNO = e.MGR
+GROUP BY m.EMPNO, m.ENAME, m.SAL
+HAVING m.SAL > AVG(e.SAL);
+
+#10. Display employee name, sal, comm and net pay for those employees whose net pay are greater than or equal to any other employee salary of the company?
+SELECT ENAME, SAL, COMM, (SAL + COALESCE(COMM,0)) AS NET_PAY
+FROM EMPLOYEE
+WHERE (SAL + COALESCE(COMM,0)) >= ANY (
+    SELECT SAL FROM EMPLOYEE
+);
