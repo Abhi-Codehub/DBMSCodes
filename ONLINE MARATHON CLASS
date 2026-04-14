@@ -128,6 +128,87 @@ FROM EMPLOYEE E
 JOIN DEPARTMENT D
 ON E.DEPTNO = D.DEPTNO;
 
+# EXP 9
+#1. Display the name of emp name who earns highest salary.
+SELECT ENAME 
+FROM EMPLOYEE 
+ORDER BY SAL DESC
+LIMIT 1;
+
+SELECT E1.ENAME
+FROM EMPLOYEE E1
+LEFT JOIN EMPLOYEE E2
+ON E1.SAL < E2.SAL
+WHERE E2.SAL IS NULL;
+
+#2. Display the employee number and name of employee working as clerk and earning highest salary among clerks.
+SELECT E1.EMPNO, E1.ENAME
+FROM EMPLOYEE E1
+LEFT JOIN EMPLOYEE E2
+ON E1.JOB = 'CLERK' AND E2.JOB = 'CLERK'
+AND E1.SAL < E2.SAL
+WHERE E1.JOB = 'CLERK'
+AND E2.SAL IS NULL;
+
+#3. Display the names of the salesman who earns a salary more than the highest salary of any clerk.
+SELECT DISTINCT E1.ENAME
+FROM EMPLOYEE E1
+JOIN EMPLOYEE E2 
+ON E1.SAL > E2.SAL 
+WHERE E1.JOB = 'SALESMAN'
+AND E2.JOB = 'CLERK';
+
+#4. Display the names of clerks who earn salary more than that of james of that of sal lesser than that of scott
+SELECT E.ENAME
+FROM EMPLOYEE E
+JOIN EMPLOYEE J ON J.ENAME = 'JAMES'
+JOIN EMPLOYEE S ON S.ENAME = 'SCOTT'
+WHERE E.JOB = 'CLERK'
+AND E.SAL > J.SAL
+AND E.SAL < S.SAL;
+
+#5. Display the names of employees who earn a sal more than that of james or that of salary greater than that of scott.
+SELECT E.ENAME
+FROM EMPLOYEE E
+JOIN EMPLOYEE J ON J.ENAME = 'JAMES'
+JOIN EMPLOYEE S ON S.ENAME = 'SCOTT'
+AND E.SAL > J.SAL
+AND E.SAL < S.SAL;
+
+#6. Display the names of the employees who earn highest salary in their respective departments.
+SELECT E1.ENAME, E1.DEPTNO 
+FROM EMPLOYEE E1
+LEFT JOIN EMPLOYEE E2
+ON E1.DEPTNO = E2.DEPTNO 
+AND E1.SAL < E2.SAL
+WHERE E2.SAL IS NULL;
+
+#7. Display the names of employees who earn highest salaries in their respective job groups.
+SELECT E1.ENAME, E1.DEPTNO 
+FROM EMPLOYEE E1
+LEFT JOIN EMPLOYEE E2
+ON E1.DEPTNO = E2.DEPTNO 
+AND E1.SAL < E2.SAL
+WHERE E2.SAL IS NULL;
+
+#8. Display the employee names who are working in accounting dept.
+SELECT E.ENAME
+FROM EMPLOYEE E
+JOIN DEPARTMENT D 
+ON E.DEPTNO = D.DEPTNO 
+WHERE D.DNAME = 'ACCOUNTING';
+
+#9. Display the employee names who are working in chicago.
+# NO QUERY
+
+#10. Display the job groups having total salary greater than the maximum salary for managers.
+SELECT E1.JOB 
+FROM EMPLOYEE E1
+GROUP BY E1.JOB 
+HAVING SUM(E1.SAL) > (
+SELECT MAX(E2.SAL)
+FROM EMPLOYEE E2
+WHERE E2.JOB = 'MANAGER');
 
 
 
