@@ -283,13 +283,59 @@ FROM EMPLOYEE
 WHERE DEPTNO IN (10,30)
 AND HIREDATE < '1982-12-31';
 
+# EXP 11
+#2. Display employee name, job, deptname, location for all who are working as managers.
+SELECT E.ENAME, E.JOB, D.DNAME
+FROM EMPLOYEE E
+JOIN DEPARTMENT D 
+ON E.DEPTNO = D.DEPTNO 
+WHERE E.JOB = 'MANAGER';
 
+#3. Display name and salary of ford if his sal is equal to high sal of his grade.
+# NO QUERY 
 
+#4. Find out the top 5 earner of company.
+SELECT ENAME, SAL
+FROM EMPLOYEE 
+ORDER BY SAL DESC
+LIMIT 5;
 
+#5. Display the name of those employees who are getting highest salary.
+SELECT ENAME, SAL
+FROM EMPLOYEE 
+ORDER BY SAL DESC
+LIMIT 1;
 
+#6. Display those employees whose salary is equal to average of maximum and minimum.
+SELECT ENAME, SAL 
+FROM EMPLOYEE
+WHERE SAL = (
+(SELECT MAX(SAL) FROM EMPLOYEE) +
+(SELECT MIN(SAL) FROM EMPLOYEE)) / 2;
 
+#7. Display dname where at least 3 are working and display only dname
+SELECT D.DNAME 
+FROM EMPLOYEE E
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO 
+GROUP BY D.DNAME 
+HAVING COUNT(E.EMPNO) >= 3;
 
+#8. Display name of those managers names whose salary is more than average salary of company.
+SELECT ENAME FROM EMPLOYEE 
+WHERE JOB = 'MANAGER'
+AND SAL > (SELECT AVG(SAL) FROM EMPLOYEE);
 
+#9. Display those managers name whose salary is more than an average salary of his employees.
+SELECT M.ENAME 
+FROM EMPLOYEE E
+JOIN EMPLOYEE M
+ON E.MGR = M.EMPNO 
+GROUP BY M.EMPNO, M.ENAME, M.SAL
+HAVING M.SAL > AVG(E.SAL);
 
-
-
+#10. Display employee name, sal, comm and net pay for those employees whose net pay are greater than or equal to any other employee salary of the company?
+SELECT ENAME, SAL, COMM, (SAL + coalesce(COMM, 0)) AS NET_PAY
+FROM EMPLOYEE 
+WHERE (SAL + coalesce(COMM, 0)) >= ANY (
+SELECT SAL FROM EMPLOYEE);
