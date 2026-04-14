@@ -1,0 +1,141 @@
+CREATE DATABASE DBMSONLINECLASS;
+USE DBMSONLINECLASS;
+
+CREATE TABLE DEPARTMENT (
+DEPTNO INT(2) PRIMARY KEY,
+DNAME VARCHAR(15) NOT NULL
+);
+
+DESC DEPARTMENT;
+
+CREATE TABLE EMPLOYEE(
+EMPNO INT(4) PRIMARY KEY,
+ENAME VARCHAR(20) NOT NULL, 
+JOB VARCHAR(20), 
+MGR INT(4),
+HIREDATE DATE,
+SAL INT(10),
+COMM INT(7),
+DEPTNO INT(2),
+FOREIGN KEY (DEPTNO) REFERENCES DEPARTMENT (DEPTNO)
+);
+
+DESC EMPLOYEE;
+
+INSERT INTO DEPARTMENT VALUES(10, 'RESEARCH');
+INSERT INTO DEPARTMENT VALUES(20, 'ACCOUNTING');
+INSERT INTO DEPARTMENT VALUES(30, 'SALES');
+INSERT INTO DEPARTMENT VALUES(40, 'OPERATIONS');
+
+SELECT * FROM DEPARTMENT;
+
+INSERT INTO EMPLOYEE (
+EMPNO, ENAME, JOB, MGR, HIREDATE, SAL, COMM, DEPTNO)
+VALUES 
+(7369, 'SMITH', 'CLERK',7902, '1980-12-17', 800,NULL, 20),
+(7499, 'ALLEN', 'SALEMAN', 7698, '1981-02-20', 1600, 300, 30),
+(7521, 'WARD', 'SALEMAN', 7698, '1981-02-22', 1250, 300, 30),
+(7566, 'JONES', 'MANAGER',7839, '1981-04-02', 2975, NULL, 20),
+(7654, 'MARTIN', 'SALEMAN', 7698, '1981-09-28', 1250, 1400, 30),
+(7698, 'BLAKE', 'MANAGER', 7839, '1981-05-01', 2850, NULL, 30),
+(7782, 'CLARK', 'MANAGER', 7839, '1981-06-09', 2450, NULL, 20),
+(7788, 'SCOTT', 'ANALYST', 7566, '1982-12-09', 3000, NULL, 40),
+(7839, 'KING', 'PRESIDENT', NULL, '1981-11-17', 5000, NULL, 20),
+(7844, 'TURNER','SALEMAN', 7698, '1981-09-08', 1500, 0, 30),
+(7876, 'ADAMS', 'CLERK', 7788, '1983-01-12', 1100, NULL, 20),
+(7900, 'JAMES', 'CLERK', 7698, '1981-12-03', 950, NULL, 30),
+(7902, 'FORD', 'ANALYST', 7566, '1981-12-03', 3000, NULL, 20),
+(7934, 'MILLER', 'CLERK', 7782, '1982-01-23', 1300, NULL, 10);
+
+SELECT * FROM EMPLOYEE;
+
+#. EXP 8 
+#1. Display all employees with their dept name.
+SELECT E.ENAME, D.DNAME
+FROM EMPLOYEE E
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO;
+
+#2. Display those employees whose manager names is jones, and also display their manager name.
+SELECT E.ENAME, M.ENAME AS MANAGER_NAME
+FROM EMPLOYEE E
+JOIN EMPLOYEE M 
+ON E.MGR = M.EMPNO 
+WHERE M.ENAME = 'JONES';
+
+#3. Display employee name, his job, his dept name, his manager name, his grade and make out of an under department wise.
+SELECT E.ENAME, E.JOB, D.DNAME, M.ENAME AS MANAGER_NAME
+FROM EMPLOYEE E
+LEFT JOIN EMPLOYEE M ON E.MGR = M.EMPNO
+JOIN DEPARTMENT D ON E.DEPTNO = D.DEPTNO
+ORDER BY D.DEPTNO;
+
+#4. List out all the employees name, job, and salary grade and department name for everyone in the company except ‘clerk’. Sort on salary display the highest salary.
+SELECT E.ENAME, E.JOB, E.SAL, D.DNAME
+FROM EMPLOYEE E
+JOIN DEPARTMENT D 
+ON E.DEPTNO = D.DEPTNO
+WHERE E.JOB != 'CLERK'
+ORDER BY E.SAL DESC;
+
+#5. Display employee name, his job and his manager. Display also employees who are without manager.
+SELECT E.ENAME, E.JOB, COALESCE(M.ENAME, 'NO MANAGER') AS MANAGER_NAME
+FROM EMPLOYEE E
+LEFT JOIN EMPLOYEE M 
+ON E.MGR = M.EMPNO;
+
+#6. List the employee name, job, annual salary, deptno, dept name and grade who earn 36000 a year or who are not clerks.
+SELECT E.ENAME, E.JOB, (E.SAL*12) AS ANNUAL_SALARY, D.DEPTNO, D.DNAME
+FROM EMPLOYEE E
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO
+WHERE (E.SAL * 12) = 36000 
+OR E.JOB != 'CLERK';
+
+#7. List ename, job, annual sal, deptno, dname and grade who earn 30000 per year and who are not clerks.
+SELECT E.ENAME, E.JOB, (E.SAL*12) AS ANNUAL_SALARY, D.DEPTNO, D.DNAME
+FROM EMPLOYEE E
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO
+WHERE (E.SAL * 12) = 30000 
+AND E.JOB != 'CLERK';
+
+#8. List out all employees by name and number along with their manager’s name and number also display ‘no manager’ who has no manager.
+SELECT E.ENAME, E.EMPNO,
+M.EMPNO, COALESCE(M.ENAME, 'NO MANAGER') AS MANAGER_NAME
+FROM EMPLOYEE E
+LEFT JOIN EMPLOYEE M 
+ON E.MGR = M.EMPNO;
+
+
+#9. Select dept name, dept no and sum of sal
+SELECT D.DNAME, D.DEPTNO,
+SUM(SAL) AS TOTAL_SALARY
+FROM DEPARTMENT D
+JOIN EMPLOYEE E
+ON E.DEPTNO = D.DEPTNO
+GROUP BY D.DEPTNO;
+
+#10. Display employee number, name and location of the department in which he is working
+SELECT E.EMPNO, E.ENAME, D.DNAME
+FROM EMPLOYEE E
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO;
+
+#11. Display employee name and department name for each employee.
+SELECT E.ENAME, D.DNAME
+FROM EMPLOYEE E
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO;
+
+
+
+
+
+
+
+
+
+
+
+
