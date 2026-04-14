@@ -210,6 +210,79 @@ SELECT MAX(E2.SAL)
 FROM EMPLOYEE E2
 WHERE E2.JOB = 'MANAGER');
 
+# EXP 10
+#1. Display the names of employees from department number 10 with salary greater than that of any employee working in other departments.
+SELECT ENAME 
+FROM EMPLOYEE 
+WHERE DEPTNO = 10
+AND SAL > ANY (
+SELECT SAL FROM EMPLOYEE WHERE DEPTNO <> 10);
+
+#2. Display the names of employee from department number 10 with salary greater than that of all employee working in other departments.
+SELECT ENAME 
+FROM EMPLOYEE 
+WHERE DEPTNO = 10
+AND SAL > ANY (
+SELECT SAL FROM EMPLOYEE WHERE DEPTNO <> 10);
+
+#3. Display the details of employees who are in sales dept and grade is 3.
+SELECT E.ENAME, D.DNAME 
+FROM EMPLOYEE E
+JOIN DEPARTMENT D 
+ON E.DEPTNO = D.DEPTNO 
+WHERE D.DNAME = 'SALES';
+
+#4. Display those who are not managers and who are managers anyone.
+SELECT E.ENAME, 
+CASE 
+	WHEN M.MGR IS NULL THEN 'NO-MANAGER'
+    ELSE 'MANAGER'
+END AS ROLE    
+FROM EMPLOYEE E
+LEFT JOIN EMPLOYEE M
+ON M.MGR = E.EMPNO;
+
+#5. Display those employees whose manager name is jones.
+SELECT E.ENAME 
+FROM EMPLOYEE E
+JOIN EMPLOYEE M 
+ON E.MGR = M.EMPNO 
+WHERE M.ENAME = 'JONES';
+
+#6. Display ename who are working in sales dept.
+SELECT E.ENAME, D.DNAME 
+FROM EMPLOYEE E
+JOIN DEPARTMENT D 
+ON E.DEPTNO = D.DEPTNO 
+WHERE D.DNAME = 'SALES';
+
+#7. Display employee name, deptname, salary and comm. For those sal in between 2000 to 5000 while location is chicago.
+SELECT E.ENAME, D.DNAME, E.SAL, E.COMM 
+FROM EMPLOYEE E
+JOIN DEPARTMENT D 
+ON E.DEPTNO = D.DEPTNO 
+WHERE E.SAL BETWEEN 2000 AND 5000;
+
+#8. Display those employees whose salary greater than his manager salary.
+SELECT E.ENAME 
+FROM EMPLOYEE E 
+JOIN EMPLOYEE M
+ON E.MGR = M.EMPNO
+WHERE E.SAL > M.SAL;
+
+#9. Display those employees who are working in the same dept where his manager is working.
+SELECT E.ENAME 
+FROM EMPLOYEE E
+JOIN EMPLOYEE M 
+ON E.MGR = M.EMPNO 
+WHERE E.DEPTNO = M.DEPTNO;
+
+#10. Display grade and employees name for the dept no 10 or 30 but grade is not 4, while joined the company before 31-dec-82.
+SELECT ENAME 
+FROM EMPLOYEE 
+WHERE DEPTNO IN (10,30)
+AND HIREDATE < '1982-12-31';
+
 
 
 
