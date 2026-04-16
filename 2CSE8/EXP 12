@@ -41,3 +41,11 @@ SELECT ENAME, SAL, COMM, (SAL + coalesce(COMM, 0)) AS NET_PAY
 FROM EMPLOYEE 
 WHERE (SAL + coalesce(COMM, 0)) >= 
 ALL ( SELECT SAL FROM EMPLOYEE);
+
+#8. Display those employees who are working in sales or research?
+SELECT E.ENAME 
+FROM EMPLOYEE E
+JOIN DEPARTMENT D
+ON E.DEPTNO = D.DEPTNO 
+WHERE D.DNAME IN('SALES', 'RESEARCH');
+
