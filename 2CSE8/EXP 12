@@ -7,3 +7,10 @@ WHERE E.SAL < M.SAL
 AND E.SAL > ANY (
 SELECT SAL FROM EMPLOYEE WHERE JOB = 'MANAGER'
 );
+
+#2. Find out the number of employees whose salary is greater than their manager salary?
+SELECT COUNT(*) AS TOTAL
+FROM EMPLOYEE E 
+JOIN EMPLOYEE M 
+ON E.MGR = M.EMPNO
+WHERE E.SAL > M.SAL;
