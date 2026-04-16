@@ -14,3 +14,11 @@ FROM EMPLOYEE E
 JOIN EMPLOYEE M 
 ON E.MGR = M.EMPNO
 WHERE E.SAL > M.SAL;
+
+#3. Display those managers who are not working under president but they are working under any other manager?
+SELECT E.ENAME
+FROM EMPLOYEE E
+JOIN EMPLOYEE M
+ON E.MGR = M.EMPNO
+WHERE E.JOB = 'MANAGER'
+AND M.JOB <> 'PRESIDENT';
