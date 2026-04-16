@@ -33,3 +33,11 @@ DELETE FROM EMPLOYEE
 WHERE DEPTNO NOT IN (
 SELECT DEPTNO FROM DEPARTMENT);
 
+#6. Display those earners whose salary is out of the grade available in sal grade table?
+#SKIP THIS QUERY 
+
+#7. Display employee name, sal, comm. And whose net pay is greater than any other in the company?
+SELECT ENAME, SAL, COMM, (SAL + coalesce(COMM, 0)) AS NET_PAY
+FROM EMPLOYEE 
+WHERE (SAL + coalesce(COMM, 0)) >= 
+ALL ( SELECT SAL FROM EMPLOYEE);
